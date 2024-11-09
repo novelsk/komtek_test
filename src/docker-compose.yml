@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+  web: &backend_api
+    container_name: backend
+    build: ./src
+    restart: always
+    volumes:
+      - ./src:/usr/src/
+    ports:
+      - "8000:80"
+    env_file:
+      - ./src/.env
+#    depends_on:
+#      db:
+#        condition: service_healthy
+    logging:
+      options:
+        max-size: 50m
+    networks:
+      - backend_bridge
+
+#  db:
+#    container_name: postgres_backend
+#    image: postgres:14.0-alpine
+#    restart: always
+#    volumes:
+#      - ./db:/var/lib/postgresql/data
+#    ports:
+#      - "5432:5432"
+#    env_file:
+#      - ./src/.env
+#    healthcheck:
+#      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
+#    logging:
+#      options:
+#        max-size: 50m
+#    networks:
+#       - backend_bridge
+
+networks:
+  backend_bridge:
+    driver: bridge
