@@ -1,0 +1,7 @@
+/.venv/
+/db/
+
+/src/static
+/src/.env
+.idea
+*.sqlite3
