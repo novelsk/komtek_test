@@ -4,12 +4,15 @@ from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
-from drf_spectacular.utils import extend_schema, OpenApiParameter
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
 from drf_spectacular.types import OpenApiTypes
 
-from prj_terminology.api.v1.serializers.refbooks import *
-
-from prj_terminology.models import *
+from prj_terminology.api.v1.serializers.refbooks import (
+    RefBooksSerializer,
+    ReferenceSerializer,
+    ReferenceSerializerVersionSerializer,
+)
+from prj_terminology.models import Reference, ReferenceVersion
 
 
 @extend_schema(
@@ -23,6 +26,26 @@ from prj_terminology.models import *
             required=False,
         ),
     ],
+    examples=[
+        OpenApiExample(
+            'Пример ответа',
+            response_only=True,
+            value={
+                "refbooks": [
+                    {
+                        "id": "1",
+                        "code": "MS1",
+                        "name": " "
+                    },
+                    {
+                        "id": "2",
+                        "code": "ICD-10",
+                        "name": " -10"
+                    },
+                ]
+            }
+        )
+    ]
 )
 class ReferenceListAPIView(APIView):
     serializer_class = RefBooksSerializer
@@ -59,6 +82,24 @@ class ReferenceListAPIView(APIView):
             required=False,
         ),
     ],
+    examples=[
+        OpenApiExample(
+            'Пример ответа',
+            response_only=True,
+            value={
+                "elements": [
+                    {
+                        "code": "J00",
+                        "value": " ()"
+                    },
+                    {
+                        "code": "J01",
+                        "value": " "
+                    }
+                ]
+            }
+        )
+    ]
 )
 class ReferenceRetrieveAPIView(RetrieveAPIView):
     serializer_class = ReferenceSerializerVersionSerializer
