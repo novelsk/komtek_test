@@ -6,7 +6,7 @@ from .models import Reference, ReferenceVersion, ReferenceElement
 
 class ReferenceVersionInline(admin.TabularInline):
     model = ReferenceVersion
-    fields = ('id', 'version', 'start_date')
+    fields = ('id', 'code', 'start_date')
     show_change_link = True
 
 
@@ -41,7 +41,7 @@ class ReferenceAdmin(admin.ModelAdmin):
     @staticmethod
     @admin.display(description='Дата начала действия версии')
     def active__start_date(obj):
-        if obj.active_version:
+        if obj.active_version and obj.active_version[0].start_date is not None:
             return obj.active_version[0].start_date.strftime("%d.%m.%Y")
 
 
