@@ -1,14 +1,16 @@
 # КОМТЕК - тестовое задание
 
-Шаблон .env файла:
+### Запуск
+1. Создать .env файл в /src.
 ```bash
+# Шаблон .env файла:
 SECRET_KEY=django-insecure
 DEBUG=1
 ```
-### Запуск
+2. Запустить
 ```bash
 # Запускать через:
-pyton manage.py runserver localhost:8000
+python src/manage.py runserver localhost:8000
 # Или
 docker-compose up -d
 ```
